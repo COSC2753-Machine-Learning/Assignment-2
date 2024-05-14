@@ -1,10 +1,10 @@
 # imports from installed libraries
-import os
 import numpy as np
 import random
 import torch
 from distutils.version import LooseVersion as Version
 from itertools import product
+import os
 
 
 def set_all_seeds(seed):

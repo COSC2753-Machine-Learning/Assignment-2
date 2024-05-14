@@ -1,6 +1,6 @@
 import time
 import torch
-from helper_evaluation import compute_accuracy
+from utils.evaluation import compute_accuracy
 
 
 def train_model(model, num_epochs, train_loader,

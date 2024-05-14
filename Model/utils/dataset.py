@@ -1,14 +1,13 @@
 import os
-import pandas as pd
-from PIL import Image, UnidentifiedImageError
 import torch
-from torch.utils.data import sampler
 from torchvision import datasets
 from torch.utils.data import DataLoader
 from torch.utils.data import SubsetRandomSampler
 from torchvision import transforms
 from torch.utils.data import random_split
-from torchvision.datasets import ImageFolder
+import pandas as pd
+from PIL import UnidentifiedImageError
+import PIL.Image as Image
 
 def load(from_dir: str) -> pd.DataFrame:
     if from_dir[-1] != '/' and from_dir[-1] != '\\':
