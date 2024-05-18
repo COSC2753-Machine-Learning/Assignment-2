@@ -37,7 +37,7 @@ def load(from_dir: str) -> pd.DataFrame:
                         img_path = os.path.join(style_path, img_name)
                         try:
                             with Image.open(img_path) as im:
-                                data_dict['ImgPath'].append(f'{category}/{style}/{img_name}')
+                                data_dict['ImgPath'].append(f'{category}\{style}\{img_name}')
                                 data_dict['FileType'].append(img_name.split('.')[-1])
                                 data_dict['Width'].append(im.size[0])
                                 data_dict['Height'].append(im.size[1])
