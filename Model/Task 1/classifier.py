@@ -6,7 +6,6 @@ from pathlib import Path
 from tkinter import filedialog, messagebox
 from torchvision import transforms
 from PIL import Image
-from models import ResNet, BasicBlock
 
 def main():
     # Get classes' name
