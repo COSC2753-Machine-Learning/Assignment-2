@@ -36,9 +36,14 @@ The trained models (saved as *.pth files) can be found [here](https://rmiteduau.
 
 ## Running the classifier
 
-Make sure the latest version of Python 3 is installed.
+**Prerequisites**
+
+1. Make sure the latest version of Python 3 is installed.
+
+2. Libraries
 
 Due to a bug in the latest torch version (2.3.0), torch and torchvision needs to be downgraded.
+
 Pillow also needs to be installed.
 
 In the project root, run the following command:
