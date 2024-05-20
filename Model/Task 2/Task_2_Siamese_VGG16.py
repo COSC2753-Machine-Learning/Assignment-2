@@ -218,7 +218,7 @@ def recommend_images(target_image_path, dataset, model, transform, device, top_k
         distances.append((output.item(), path))
 
     # Sort by distance (ascending order)
-    distances.sort(key=lambda x: x[0])
+    distances.sort(key=lambda x: x[0], reverse=True)
     return distances[:top_k]
 
 if __name__ == "__main__":
@@ -226,7 +226,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Image Recommendation using Siamese Network")
     parser.add_argument("--target_image", type=str, required=True, help="Path to the target image")
     parser.add_argument("--image_folder", type=str, required=True, help="Path to the folder containing images")
-    parser.add_argument("--top_k", type=int, default=5, help="Number of top recommendations to return")
+    parser.add_argument("--top_k", type=int, default=10, help="Number of top recommendations to return")
     args = parser.parse_args()
 
     # Set device
