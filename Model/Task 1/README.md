@@ -5,7 +5,7 @@
 To run the scripts, make sure to organize the files as follows:
 
 ```
-. <--- (root directory)
+. <--- (project root)
 |
 +---Furniture_Data
 |       
@@ -33,3 +33,21 @@ To run the scripts, make sure to organize the files as follows:
 ```
 
 The final models (saved as *.pth files) can be found [here](https://rmiteduau.sharepoint.com/:f:/s/COSC2753MachineLearning/EhceSkrgDOpPqfrDC7Yrsf8BO_xriQNQ4woqAIFDNy3S5A?e=kzoJPW)
+
+## Running the classifier
+
+Make sure Python 3 is installed.
+
+Due to a bug in the latest torch version (2.3.0), torch and torchvision needs to be downgraded.
+Pillow also needs to be installed.
+
+In the project root, run the following command:
+
+`pip install -r "./Model/Task 1/requirements.txt"`
+
+---
+
+To run the classifier, do one of the following:
+- Double-click `classifier.py`
+- In the project root, execute `python -u ".\Model\Task 1\classifier.py"` in the terminal
+- In the project root, execute `".\Model\Task 1\classifier.py"` in the terminal
