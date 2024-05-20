@@ -14,7 +14,7 @@ def get_output_shape(model, image_dim, device):
     with torch.no_grad():
         dummy_input = torch.randn(1, 3, *image_dim).to(device)
         output = model(dummy_input)
-    return output.shape[1]
+    return output.shape[1]  # Return the number of output features
 
 # Define the VGG16 used for feature extraction
 class VGG16FeatureExtractor(nn.Module):
@@ -148,11 +148,12 @@ class SiameseNetwork(nn.Module):
         super(SiameseNetwork, self).__init__()
         self.feature_extractor = VGG16FeatureExtractor()
         out_features = get_output_shape(self.feature_extractor, (120, 120), DEVICE)
-        self.feature_extractor.to(DEVICE)  # Move to device after getting output shape
+        print(f"Output features: {out_features}")  # Debugging print statement
         self.fc = nn.Linear(out_features, embedding_dim)
         
     def forward(self, x):
         x = self.feature_extractor(x)
+        x = x.view(x.size(0), -1)
         x = self.fc(x)
         return x
 
@@ -203,15 +204,15 @@ def get_image_paths(folder_path):
     return img_paths
 
 # Image recommendation function
-def recommend_images(target_image_path, dataset, model, top_k=10):
+def recommend_images(target_image_path, dataset, model, transform, device, top_k=10):
     target_image = Image.open(target_image_path)
     if transform:
         target_image = transform(target_image)
-    target_image = target_image.unsqueeze(0).to(DEVICE)
+    target_image = target_image.unsqueeze(0).to(device)
 
     distances = []
     for img, path in dataset:
-        img = img.unsqueeze(0).to(DEVICE)
+        img = img.unsqueeze(0).to(device)
         with torch.no_grad():
             output = model(target_image, img)
         distances.append((output.item(), path))
@@ -232,13 +233,12 @@ if __name__ == "__main__":
     DEVICE = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
     # Load the model and transformation pipeline
-    IMG_SHAPE = (120, 120, 3)  # Update this based on your image size
-    model = SiameseModel(IMG_SHAPE).to(DEVICE)
-    model.load_state_dict(torch.load('Model\Task 2\Siamese_(VGG16).pth', map_location=DEVICE))
+    model = SiameseModel().to(DEVICE)
+    model.load_state_dict(torch.load('Model/Task 2/Siamese_(VGG16).pth', map_location=DEVICE))
     model.eval()
     print("Model loaded for inference.")
 
-    with open('Model\Task 2\Transform.pkl.pkl', 'rb') as f:
+    with open('Model/Task 2/Transform.pkl', 'rb') as f:
         transform = pickle.load(f)
     print("Transformation pipeline loaded.")
 
@@ -247,6 +247,6 @@ if __name__ == "__main__":
     dataset = InferenceDataset(img_paths, transform)
 
     # Perform image recommendation
-    recommendations = recommend_images(args.target_image, dataset, model, top_k=args.top_k)
+    recommendations = recommend_images(args.target_image, dataset, model, transform, DEVICE, top_k=args.top_k)
     for dist, path in recommendations:
         print(f"Image: {path}, Distance: {dist}")
