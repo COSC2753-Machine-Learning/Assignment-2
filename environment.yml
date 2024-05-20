@@ -1,4 +1,4 @@
-name: C:\Users\Minh\Anaconda\envs\GPU_env
+name: GPU_env
 channels:
   - pytorch
   - conda-forge
