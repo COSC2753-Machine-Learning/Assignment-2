@@ -130,13 +130,13 @@ def main():
     print(f'Predicted Style: {predicted_style}')
 
     # Load the Siamese model and transformation pipeline for recommendation
-    siamese_model_path = 'Model/Task2/Siamese.pth'
+    siamese_model_path = 'Model/Task 2/Siamese.pth'
     siamese_model = SiameseModel((120, 120, 3)).to(DEVICE)
     siamese_model.load_state_dict(torch.load(siamese_model_path, map_location=DEVICE))
     siamese_model.eval()
     print("Siamese model loaded for inference.")
 
-    with open('Model/Task2/Transform.pkl', 'rb') as f:
+    with open('Model/Task 2/Transform.pkl', 'rb') as f:
         siamese_transform = pickle.load(f)
     print("Transformation pipeline loaded.")
 
