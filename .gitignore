@@ -1,2 +1,4 @@
 /Data/**
 **/__pycache__/**
+**/Model/**/*.pth
+**/Model/**/*.pkl
